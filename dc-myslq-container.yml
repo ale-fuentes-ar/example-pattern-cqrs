@@ -1,0 +1,29 @@
+# this image of MySQL
+version: "3.8"
+services:
+
+  cqrs-command-db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    container_name: cqrs-command-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=command-db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    ports:
+      - 3301:3306
+
+  cqrs-query-db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    container_name: cqrs-query-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=query-db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    ports:
+      - 3302:3306

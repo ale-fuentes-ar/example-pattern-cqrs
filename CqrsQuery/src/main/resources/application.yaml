@@ -1,0 +1,36 @@
+# SERVER
+server:
+  port: 9096
+
+# CUSTOM
+cqrspattern:
+  topic:
+    event-name: "contact-event-topic"
+    event-group: "contact-event-group"
+
+# PERSISTENCE - DB
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3302/query-db
+    username: admin
+    password: admin
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  # KAFKA - Broker consumer
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: ale.fuentes.cqrs.pattern.dto

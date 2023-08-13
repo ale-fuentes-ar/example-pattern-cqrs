@@ -1,0 +1,30 @@
+# SERVER
+server:
+  port: 9095
+
+# CUSTOM
+cqrspattern:
+  topic:
+    event-name: "contact-event-topic"
+
+# PERSISTENCE - DB
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3301/command-db
+    username: admin
+    password: admin
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  # KAFKA - Broker provider
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
